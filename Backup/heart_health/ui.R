@@ -15,17 +15,17 @@ shinyUI(dashboardPage(
     sidebarMenu(
       menuItem("App Overview", tabName = "intro", icon = icon("info")),
       # br(),
-      menuItem("Target Corelation", tabName = "Corel", icon = icon("signal")),
+      #menuItem("Target Corelation", tabName = "Corel", icon = icon("signal")),
       # br(),
       menuItem("Contributing Factors", tabName = 'Factors', icon = icon("th-list")),
       menuSubItem("Target", tabName = "Target"),
       menuSubItem("Age", tabName = 'Age'),
       menuSubItem("Gender", tabName = "Gender"),
       menuSubItem("Chest_Pain", tabName = "Chest_Pain"),
-      #menuSubItem("Resting_BP", tabName = "Resting_BP"),
-      #menuSubItem("Cholestoral", tabName = "Cholestoral"),
-      #menuSubItem("Blood_Sugar", tabName = "Blood_Sugar"),
-      #menuSubItem("Restecg", tabName = "Restecg"),
+      menuSubItem("Resting_BP", tabName = "Resting_BP"),
+      menuSubItem("Cholestoral", tabName = "Cholestoral"),
+      menuSubItem("Blood_Sugar", tabName = "Blood_Sugar"),
+      menuSubItem("Restecg", tabName = "Restecg"),
       menuSubItem("Max_Heart_Rate", tabName = "Max_Heart_Rate"),
       menuSubItem("Exang", tabName = "Exang"),
       menuSubItem("Oldpeak", tabName = "Oldpeak"),
@@ -106,10 +106,8 @@ shinyUI(dashboardPage(
       
       tabItem(tabName = 'Corel',
               fluidRow(
-                box(print("SUMMARY: Below Corelation plot shows factors trestbps, chol,
-                          fbs & restecg are not dependent on Target which we will be ignoring for 
-                          further analysis."), width = 12, length =30),
-                br(),
+                box(print("SUMMARY: The number of people with heart disease is more
+                          than with a number of people having no heart disease."), width = 12, length =30),
                 br(),
                 br(),
                 box(plotOutput("Corel"),  width = 12, length = 30))),
@@ -123,7 +121,7 @@ shinyUI(dashboardPage(
       tabItem(tabName = 'Target',
               fluidRow(
                 box(print("SUMMARY: The number of people with heart disease is more
-                          than people having no heart disease."), width = 12, length =30),
+                          than with a number of people having no heart disease."), width = 12, length =30),
                 br(),
                 br(),
                 box(plotOutput("Target"),  width = 12, length = 30))),
@@ -134,12 +132,12 @@ shinyUI(dashboardPage(
       tabItem(tabName = 'Age',
               fluidRow(box(background = 'aqua',
                            radioButtons('Plot1',label = h5('Select  Plot'),
-                                        choices = list("Density" = "1", "BoxPlot" = "2"),
-                                        inline = TRUE, selected = 1, width = 180))),
+                                       choices = list("Density" = "1", "BoxPlot" = "2"),
+                                       inline = TRUE, selected = 1, width = 180))),
               print("SUMMARY: There are some differences in the age distributions 
-                    of those with heart disease and those without."), 
+                        of those with heart disease and those without."), 
               box(plotOutput("Age"),  width = 12, length = 30)),
-      
+              
       #Gender        
       
       tabItem(tabName = 'Gender',
@@ -147,7 +145,7 @@ shinyUI(dashboardPage(
                            radioButtons('Plot2',label = h5('Select  Plot'),
                                         choices = list("Count" = "3", "Percent" = "4"),
                                         inline = TRUE, selected = 3, width = 180))),
-              print("SUMMARY: 68% of all patients in the sample are male. In the subset of all patients without a heart disease 56% are male, while in the subset of all patients with a heart disease 83% are male. Hence, in this sample the propability of a male patient to have a heart disease is higher than the propability of a female patient."),
+              print("SUMMARY: Males have a much higher rate of heart disease than the females."),
               box(plotOutput("Gender"),  width = 12, length = 30)),
       
       
@@ -167,59 +165,59 @@ shinyUI(dashboardPage(
       
       #Resting_BP
       
-      # tabItem(tabName = 'Resting_BP',
-      #         fluidRow(box(background = 'aqua',
-      #                      radioButtons('Plot4',label = h5('Select  Plot'),
-      #                                   choices = list("Density" = "7", "Box Plot" = "8"),
-      #                                   inline = TRUE, selected = 7, width = 180))),
-      #         print(" SUMMARY: Patients who are most likely to not suffer from the disease have
-      #               a slighly greater blood pressure than the patients who have heart 
-      #               diseases."),
-      #         box(plotOutput("Resting_BP"),  width = 12, length = 30)),
-      # 
-      # 
-      # 
-      # #Cholestoral
-      # 
-      # tabItem(tabName = 'Cholestoral',
-      #         fluidRow(box(background = 'aqua',
-      #                      radioButtons('Plot5',label = h5('Select  Plot'),
-      #                                   choices = list("Density" = "9", "Box Plot" = "10"),
-      #                                   inline = TRUE, selected = 9, width = 180))),
-      #         print("SUMMARY: Patients likely to suffer from heart diseases are having
-      #               higher cholestrol levels in comparison to the patients with target
-      #               0(likely to not suffer from the heart diseases."),
-      #         
-      #         box(plotOutput("Cholestoral"),  width = 12, length = 30)),
-      # 
-      # 
-      # 
-      # 
-      # #Blood_Sugar
-      # 
-      # tabItem(tabName = 'Blood_Sugar',
-      #         fluidRow(box(background = 'aqua',
-      #                      radioButtons('Plot6',label = h5('Select  Plot'),
-      #                                   choices = list("Count" = "11", "Percent" = "12"),
-      #                                   inline = TRUE, selected = 11, width = 180))),
-      #         print(" SUMMARY: People having fbs < 120 have more chance of having Heart Disease than people havnig fbs >120"),
-      #         br(),
-      #         box(plotOutput("Blood_Sugar"),  width = 12, length = 30)),
-      # 
-      # 
-      # 
-      # #Restecg
-      # 
-      # tabItem(tabName = 'Restecg',
-      #         fluidRow(box(background = 'aqua',
-      #                      radioButtons('Plot7',label = h5('Select  Plot'),
-      #                                   choices = list("Count" = "13", "Percent" = "14"),
-      #                                   inline = TRUE, selected = 13, width = 180))),
-      #         print("SUMMARY: Resting electrocardiographic is 1 then person have more chances of suffering from Heart Disease"),
-      #         br(),
-      #         box(plotOutput("Restecg"),  width = 12, length = 30)),
-      # 
-      # 
+      tabItem(tabName = 'Resting_BP',
+              fluidRow(box(background = 'aqua',
+                           radioButtons('Plot4',label = h5('Select  Plot'),
+                                        choices = list("Density" = "7", "Box Plot" = "8"),
+                                        inline = TRUE, selected = 7, width = 180))),
+              print(" SUMMARY: Patients who are most likely to not suffer from the disease have
+                    a slighly greater blood pressure than the patients who have heart 
+                    diseases."),
+              box(plotOutput("Resting_BP"),  width = 12, length = 30)),
+      
+      
+      
+      #Cholestoral
+      
+      tabItem(tabName = 'Cholestoral',
+              fluidRow(box(background = 'aqua',
+                           radioButtons('Plot5',label = h5('Select  Plot'),
+                                        choices = list("Density" = "9", "Box Plot" = "10"),
+                                        inline = TRUE, selected = 9, width = 180))),
+              print("SUMMARY: Patients likely to suffer from heart diseases are having
+                    higher cholestrol levels in comparison to the patients with target
+                    0(likely to not suffer from the heart diseases."),
+              
+              box(plotOutput("Cholestoral"),  width = 12, length = 30)),
+      
+      
+      
+      
+      #Blood_Sugar
+      
+      tabItem(tabName = 'Blood_Sugar',
+              fluidRow(box(background = 'aqua',
+                           radioButtons('Plot6',label = h5('Select  Plot'),
+                                        choices = list("Count" = "11", "Percent" = "12"),
+                                        inline = TRUE, selected = 11, width = 180))),
+              print(" SUMMARY: People having fbs < 120 have more chance of having Heart Disease than people havnig fbs >120"),
+              br(),
+              box(plotOutput("Blood_Sugar"),  width = 12, length = 30)),
+      
+      
+      
+      #Restecg
+      
+      tabItem(tabName = 'Restecg',
+              fluidRow(box(background = 'aqua',
+                           radioButtons('Plot7',label = h5('Select  Plot'),
+                                        choices = list("Count" = "13", "Percent" = "14"),
+                                        inline = TRUE, selected = 13, width = 180))),
+              print("SUMMARY: Resting electrocardiographic is 1 then person have more chances of suffering from Heart Disease"),
+              br(),
+              box(plotOutput("Restecg"),  width = 12, length = 30)),
+      
+      
       
       #Max_Heart_Rate
       
@@ -228,10 +226,7 @@ shinyUI(dashboardPage(
                            radioButtons('Plot8',label = h5('Select  Plot'),
                                         choices = list("Density" = "15", "Box Plot" = "16"),
                                         inline = TRUE, selected = 15, width = 180))),
-              print("SUMMARY: The average maximum heart rate of patients without a 
-                    heart disease is on average roughly 20 bpm higher than the maximum
-                    heart rate of patients with a heart disease. Person with more heart
-                    rate is prone to heart diseases."),
+              print("SUMMARY: Person with more heart rate is prone to heart diseases."),
               br(),
               box(plotOutput("Max_Heart_Rate"),  width = 12, length = 30)),
       
@@ -245,7 +240,7 @@ shinyUI(dashboardPage(
                            radioButtons('Plot9',label = h5('Select  Plot'),
                                         choices = list("Count" = "17", "Percent" = "18"),
                                         inline = TRUE, selected = 17, width = 180))),
-              print("For only 32% of all patients exercise didn't induce angina. However, for most of the patients with heart disease exercise induced angina. This is contrary to the patients without heart disease. The large majority of patients without heart disease did not have symptoms of angina while exercising."),
+              print("This is it!"),
               br(),
               box(plotOutput("Exang"),  width = 12, length = 30)),
       
@@ -293,23 +288,23 @@ shinyUI(dashboardPage(
       
       ##Data Table
       #==========================================================================================
-
+      
       tabItem(tabName = 'data',
               p(h3("Dataset used for EDA")),
-               fluidRow(box(DT::dataTableOutput("table1"), width = 12)
-                        #changing width to 12 makes it take up whole page
-               )
-      # #
-      # 
-      # 
-       )
-      
-      
-      
+              fluidRow(box(DT::dataTableOutput("table1"), width = 12)
+                       #changing width to 12 makes it take up whole page
       )
-    
-    
-    
-      )))
+      
+      
+      
+    )
+      
+      
+            
+  )
+  
+  
+  
+)))
 
 
